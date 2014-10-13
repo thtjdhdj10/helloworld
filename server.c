@@ -51,7 +51,7 @@ int main()
         goto error;
     }
     if ((ret = recv(acceptedSock, readBuf, MAX_DATA, 0)) <= 0) {
-        perror("read");
+        perror("recv");
         ret = -1;
     } else
         printf("Read %d Bytes: '%s'\n", ret, readBuf);

@@ -34,12 +34,12 @@ int main()
     serverAddr.sin_port = htons(PORT);
 
     if ((ret = connect(clientSock,(struct sockaddr*)&serverAddr, sizeof(serverAddr)))) {
-        perror("socket");
+        perror("connect");
         goto error;
     }
 
     if ((ret = send(clientSock, WRITE_DATA, sizeof(WRITE_DATA), 0)) <= 0) {
-        perror("write");
+        perror("send");
         ret = -1;
     } else
         printf("Wrote '%s' (%d Bytes)\n", WRITE_DATA, ret);
