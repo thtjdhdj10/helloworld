@@ -1,3 +1,5 @@
+# mimimal Makefile
+
 all: server client
 
 CFLAGS = -g

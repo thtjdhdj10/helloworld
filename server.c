@@ -1,9 +1,11 @@
 //
-// main.c
+// server.c
 // simple_server
 //
-// Created by Injae Lee on 2014. 10. 10..
+// Created by Injae Lee on 2014. 10. 10.
+// Modified by Minsuk Lee,
 // Copyright (c) 2014. Injae Lee All rights reserved.
+// see LICENSE
 //
 
 #include <stdio.h>
