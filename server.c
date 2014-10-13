@@ -18,49 +18,46 @@
 #define PORT 3000
 #define MAX_DATA 100
 
-int main(int argc, const char * argv[])
+int main()
 {
     int ret = -1;
-    struct sockaddr_in serverAddr;
     int serverSock;
     int acceptedSock;
-    struct sockaddr_in clientAddr;
+    struct sockaddr_in Addr;
     char readBuf[MAX_DATA];
-    ssize_t readSize;
-    socklen_t clientAddrSize = sizeof(clientAddr);
+    socklen_t AddrSize = sizeof(Addr);
 
     if ((serverSock = socket(PF_INET, SOCK_STREAM, 0)) == -1) {
         perror("socket");
         goto leave;
     }
 
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_addr.s_addr = (INADDR_ANY);
-    serverAddr.sin_port = htons(PORT);
-    if ((ret = bind(serverSock, (struct sockaddr *)&serverAddr, sizeof(serverAddr)))) {
+    Addr.sin_family = AF_INET;
+    Addr.sin_addr.s_addr = INADDR_ANY;
+    Addr.sin_port = htons(PORT);
+    if ((ret = bind(serverSock, (struct sockaddr *)&Addr, sizeof(Addr)))) {
         perror("bind");
-        goto error1;
+        goto error;
     }
 
     if ((ret = listen(serverSock, 1))) {
         perror("listen");
-        goto error1;
+        goto error;
     }
-    acceptedSock = accept(serverSock, (struct sockaddr *)&clientAddr, &clientAddrSize);
+    acceptedSock = accept(serverSock, (struct sockaddr *)&Addr, &AddrSize);
     if (acceptedSock == -1) {
         perror("accept");
         ret = -1;
-        goto error1;
+        goto error;
     }
-    if ((readSize = recv(acceptedSock, readBuf, MAX_DATA, 0)) <= 0) {
+    if ((ret = recv(acceptedSock, readBuf, MAX_DATA, 0)) <= 0) {
         perror("read");
         ret = -1;
     } else
-        printf("Read %ld Bytes: '%s'\n", readSize, readBuf);
+        printf("Read %d Bytes: '%s'\n", ret, readBuf);
 
-error2:
     close(acceptedSock);
-error1:
+error:
     close(serverSock);
 leave:
     return ret;

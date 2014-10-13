@@ -18,11 +18,10 @@
 #define PORT 3000
 #define WRITE_DATA "Hello World!"
 
-int main(int argc, const char * argv[])
+int main()
 {
     int ret = -1;
     int clientSock;
-    ssize_t writeSize;
     struct sockaddr_in serverAddr;
 
     if ((clientSock = socket(PF_INET, SOCK_STREAM, 0)) == -1) {
@@ -39,11 +38,11 @@ int main(int argc, const char * argv[])
         goto error;
     }
 
-    if ((writeSize = send(clientSock, WRITE_DATA, sizeof(WRITE_DATA), 0)) <= 0) {
+    if ((ret = send(clientSock, WRITE_DATA, sizeof(WRITE_DATA), 0)) <= 0) {
         perror("write");
         ret = -1;
     } else
-        printf("Wrote '%s' (%ld Bytes)\n", WRITE_DATA, writeSize);
+        printf("Wrote '%s' (%d Bytes)\n", WRITE_DATA, ret);
 
 error:
     close(clientSock);
