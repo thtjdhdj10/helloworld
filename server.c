@@ -25,7 +25,7 @@ int main()
     int acceptedSock;
     struct sockaddr_in Addr;
     char readBuf[MAX_DATA];
-    socklen_t AddrSize = sizeof(Addr);
+    socklen_t AddrSize;
 
     if ((serverSock = socket(PF_INET, SOCK_STREAM, 0)) == -1) {
         perror("socket");
