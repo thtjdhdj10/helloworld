@@ -33,7 +33,8 @@ int main()
     serverAddr.sin_addr.s_addr = inet_addr(IP);
     serverAddr.sin_port = htons(PORT);
 
-    if ((ret = connect(clientSock,(struct sockaddr*)&serverAddr, sizeof(serverAddr)))) {
+    if ((ret = connect(clientSock,(struct sockaddr*)&serverAddr,
+                       sizeof(serverAddr)))) {
         perror("connect");
         goto error;
     }
